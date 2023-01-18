@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -38,8 +40,8 @@ class _HomepageState extends State<Homepage> {
             padding: const EdgeInsets.all(15.0),
             child: Center(
               child: FutureBuilder(
-                builder: (context, snapshot) {
-                  var data = json.decode(snapshot.data.toString());
+                builder: (context, AsyncSnapshot snapshot) {
+                  //var data = json.decode(snapshot.data.toString()); ทำที่ future getData() ไปแล้ว
                   final topic = [
                     "สินค้าที่ขายได้ที่สุด 3 อันดับแรก",
                     "สินค้าที่ซื้อมากที่สุด 3 อันดับแรก"
@@ -51,12 +53,12 @@ class _HomepageState extends State<Homepage> {
                         children: [
                           Mybox(
                               topic[index],
-                              data[index]["name1"],
-                              data[index]["image1"],
-                              data[index]["name2"],
-                              data[index]["image2"],
-                              data[index]["name3"],
-                              data[index]["image3"],
+                              snapshot.data[index]["name1"],
+                              snapshot.data[index]["image1"],
+                              snapshot.data[index]["name2"],
+                              snapshot.data[index]["image2"],
+                              snapshot.data[index]["name3"],
+                              snapshot.data[index]["image3"],
                               functioninput[index]),
                           SizedBox(
                             height: 15,
@@ -64,11 +66,13 @@ class _HomepageState extends State<Homepage> {
                         ],
                       );
                     },
-                    itemCount: data.length,
+                    itemCount: snapshot.data.length,
                   );
                 },
-                future: DefaultAssetBundle.of(context)
-                    .loadString('assets/data.json'),
+                future: getData(),
+                //อ่าน file json จากเครื่องเราเอง
+                //future: DefaultAssetBundle.of(context)
+                //.loadString('assets/data.json'),
               ),
             ),
           ),
@@ -121,7 +125,7 @@ class _HomepageState extends State<Homepage> {
               Container(
                 child: Column(
                   children: [
-                    Image.asset(
+                    Image.network(
                       image1,
                       width: 120,
                       height: 120,
@@ -139,7 +143,7 @@ class _HomepageState extends State<Homepage> {
               Container(
                 child: Column(
                   children: [
-                    Image.asset(
+                    Image.network(
                       image2,
                       width: 120,
                       height: 120,
@@ -157,7 +161,7 @@ class _HomepageState extends State<Homepage> {
               Container(
                 child: Column(
                   children: [
-                    Image.asset(
+                    Image.network(
                       image3,
                       width: 120,
                       height: 120,
@@ -193,5 +197,15 @@ class _HomepageState extends State<Homepage> {
         ],
       ),
     );
+  }
+
+//เอาไปแทน future builder
+  Future getData() async {
+    //https://raw.githubusercontent.com/Khanthamalee/API_basic/main/assets/data.json
+    var url = Uri.https("raw.githubusercontent.com",
+        "Khanthamalee/API_basic/main/assets/data.json");
+    var response = await http.get(url);
+    var result = json.decode(response.body);
+    return result;
   }
 }
