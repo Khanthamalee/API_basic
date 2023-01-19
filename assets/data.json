@@ -1,20 +1,17 @@
 
-[
-    {
+[{
     "name1":"ดอกโป๊ยเซียน",
-    "image1":"asset/flo.jpg",
+    "image1":"https://raw.githubusercontent.com/Khanthamalee/API_basic/main/asset/flo.jpg",
     "name2":"ดอกทานตะวัน",
-    "image2":"asset/sunflower.png",
+    "image2":"https://raw.githubusercontent.com/Khanthamalee/API_basic/main/asset/sunflower.png",
     "name3":"ดอกแพงพวย",
-    "image3":"asset/watercress.png"
+    "image3":"https://raw.githubusercontent.com/Khanthamalee/API_basic/main/asset/watercress.png"
     },
     {
     "name1":"แก๊สหุงต้ม",
-    "image1":"asset/gas.png",
+    "image1":"https://raw.githubusercontent.com/Khanthamalee/API_basic/main/asset/gas.png",
     "name2":"น้ำดื่ม",
-    "image2":"asset/water.png",
+    "image2":"https://raw.githubusercontent.com/Khanthamalee/API_basic/main/asset/water.png",
     "name3":"ส้มเขียวหวาน",
-    "image3":"asset/Orange.png"
-    }
-
-]
+    "image3":"https://raw.githubusercontent.com/Khanthamalee/API_basic/main/asset/Orange.png"
+    }]
